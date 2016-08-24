@@ -88,11 +88,13 @@ task installBowerPackages(type: Exec) {
   if (Os.isFamily(Os.FAMILY_WINDOWS)) {
     commandLine 'cmd', '/c', 'node_modules\\.bin\\bower', 'install'
   } else {
-    if (project.hasProperty("h2o.web.allow.root")) {
+    //Always run with --allow-root option, because it'll be run inside docker container.
+    //Can be fixed in future if we plan to build it outside docker.
+    //if (project.hasProperty("h2o.web.allow.root")) {
         commandLine 'node_modules/.bin/bower', 'install', '--allow-root'
-    } else {
-        commandLine 'node_modules/.bin/bower', 'install'
-    }
+    //} else {
+    //    commandLine 'node_modules/.bin/bower', 'install'
+    //}
   }
 }
 

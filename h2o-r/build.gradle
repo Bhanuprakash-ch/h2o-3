@@ -128,7 +128,8 @@ task genPDF(type: Exec) {
     standardOutput = new ByteArrayOutputStream() // > /dev/null
 }
 
-genPDF.onlyIf { PDF_LATEX != "" && SYS_OS != "windows" }
+//We don't need it
+genPDF.onlyIf { false }
 
 task cpPDF << {
     new File([T,"R"].join(File.separator)).mkdirs()
@@ -196,7 +197,7 @@ cpH2OAppJar.dependsOn setProperties
 setPackageFiles.dependsOn cpH2OAppJar
 buildPackageDocumentation.dependsOn setPackageFiles
 genPDF.dependsOn setPackageFiles
-genPDF.dependsOn buildPackageDocumentation
+//genPDF.dependsOn buildPackageDocumentation
 cpPDF.dependsOn genPDF
 buildPKG.dependsOn cpPDF
 cpToR.dependsOn buildPKG
